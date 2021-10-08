@@ -17,8 +17,6 @@
 
 #include "robot-config.h"
 
-extern double speed;
-
 #define waitUntil(condition)                                                   \
   do {                                                                         \
     wait(5, msec);                                                             \

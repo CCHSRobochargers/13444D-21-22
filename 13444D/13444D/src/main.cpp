@@ -128,12 +128,12 @@ int rc_auto_loop_function_Controller1() {
       
       // only tell the left drive motor to spin if the values are not in the deadband range
       if (DrivetrainLNeedsToBeStopped_Controller1) {
-        LeftDriveSmart.setVelocity(drivetrainLeftSideSpeed, percent);
+        LeftDriveSmart.setVelocity(drivetrainLeftSideSpeed * speed, percent);
         LeftDriveSmart.spin(forward);
       }
       // only tell the right drive motor to spin if the values are not in the deadband range
       if (DrivetrainRNeedsToBeStopped_Controller1) {
-        RightDriveSmart.setVelocity(drivetrainRightSideSpeed, percent);
+        RightDriveSmart.setVelocity(drivetrainRightSideSpeed * speed, percent);
         RightDriveSmart.spin(forward);
       }
       // check the ButtonL1/ButtonL2 status to control MotorGroup9
@@ -147,6 +147,12 @@ int rc_auto_loop_function_Controller1() {
         MotorGroup9.stop();
         // set the toggle so that we don't constantly tell the motor to stop when the buttons are released
         Controller1LeftShoulderControlMotorsStopped = true;
+      }
+      if (Controller1.ButtonR1.pressing()) {
+        speed = 1.0;
+      }
+      if (Controller1.ButtonR2.pressing()) {
+        speed = 0.5;
       }
     }
     // wait before repeating the process

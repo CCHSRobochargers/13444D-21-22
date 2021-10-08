@@ -11,8 +11,8 @@ brain  Brain;
 motor LeftDriveSmart = motor(PORT10, ratio18_1, false);
 motor RightDriveSmart = motor(PORT20, ratio18_1, true);
 drivetrain Drivetrain = drivetrain(LeftDriveSmart, RightDriveSmart, 319.19, 295, 40, mm, 1);
-motor MotorGroup9MotorA = motor(PORT9, ratio18_1, true);
-motor MotorGroup9MotorB = motor(PORT19, ratio18_1, false);
+motor MotorGroup9MotorA = motor(PORT9, ratio18_1, false);
+motor MotorGroup9MotorB = motor(PORT2, ratio18_1, false);
 motor_group MotorGroup9 = motor_group(MotorGroup9MotorA, MotorGroup9MotorB);
 controller Controller1 = controller(primary);
 
