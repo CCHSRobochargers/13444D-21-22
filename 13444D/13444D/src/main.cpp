@@ -244,7 +244,7 @@ void autonomous(void) {
   // ..........................................................................
   // Insert autonomous user code here.
   // ..........................................................................
-  auto_yellow_goal();
+  //auto_yellow_goal();
   left_auto_alliance_goal();
 
 }
