@@ -93,7 +93,7 @@ motor LeftDriveSmart = motor(PORT10, ratio18_1, false);
 motor RightDriveSmart = motor(PORT20, ratio18_1, true);
 drivetrain Drivetrain = drivetrain(LeftDriveSmart, RightDriveSmart, 319.19, 295, 40, mm, 1);
 motor MotorGroup9MotorA = motor(PORT9, ratio18_1, false);
-motor MotorGroup9MotorB = motor(PORT2, ratio18_1, false);
+motor MotorGroup9MotorB = motor(PORT19, ratio18_1, true);
 motor_group MotorGroup9 = motor_group(MotorGroup9MotorA, MotorGroup9MotorB);
 controller Controller1 = controller(primary);
 
@@ -218,7 +218,7 @@ void pre_auton(void) {
 
 void auto_yellow_goal(void) {
   Drivetrain.setDriveVelocity(50, percent);
-  MotorGroup9.spinFor(reverse, 90 * 1.75, degrees);
+  MotorGroup9.spinFor(reverse, 100 * 1.75, degrees);
   Drivetrain.driveFor(forward, 54, inches);
   MotorGroup9.spinFor(forward, 45 * 1.75, degrees);
   Drivetrain.driveFor(reverse, 54, inches);
@@ -233,6 +233,12 @@ void left_auto_alliance_goal(void) {
 }
 
 void right_auto_alliance_goal(void) {
+  Drivetrain.driveFor(forward, 9, inches);
+  MotorGroup9.spinFor(forward, 100*1.75, degrees);
+  Drivetrain.driveFor(forward, 7, inches);
+  MotorGroup9.spinFor(reverse, 100*1.75, degrees);
+  Drivetrain.driveFor(forward, 40, inches);
+  MotorGroup9.spinFor(forward, 100*1.75, degrees);
 
 }
 
@@ -246,6 +252,7 @@ void autonomous(void) {
   // ..........................................................................
   //auto_yellow_goal();
   left_auto_alliance_goal();
+  //right_auto_alliance_goal();
 
 }
 
