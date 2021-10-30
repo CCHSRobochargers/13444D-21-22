@@ -4,6 +4,46 @@
 // Drivetrain           drivetrain    10, 20          
 // MotorGroup9          motor_group   9, 19           
 // Controller1          controller                    
+// Motor18              motor         18              
+// ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// Drivetrain           drivetrain    10, 20          
+// MotorGroup9          motor_group   9, 19           
+// Controller1          controller                    
+// Motor18              motor         18              
+// ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// Drivetrain           drivetrain    10, 20          
+// MotorGroup9          motor_group   9, 19           
+// Controller1          controller                    
+// Motor18              motor         18              
+// ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// Drivetrain           drivetrain    10, 20          
+// MotorGroup9          motor_group   9, 19           
+// Controller1          controller                    
+// Motor18              motor         18              
+// ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// Drivetrain           drivetrain    10, 20          
+// MotorGroup9          motor_group   9, 19           
+// Controller1          controller                    
+// Motor18              motor         18              
+// ---- END VEXCODE CONFIGURED DEVICES ----
+// ---- START VEXCODE CONFIGURED DEVICES ----
+// Robot Configuration:
+// [Name]               [Type]        [Port(s)]
+// Drivetrain           drivetrain    10, 20          
+// MotorGroup9          motor_group   9, 19           
+// Controller1          controller                    
 // ---- END VEXCODE CONFIGURED DEVICES ----
 // ---- START VEXCODE CONFIGURED DEVICES ----
 // Robot Configuration:
@@ -96,6 +136,7 @@ motor MotorGroup9MotorA = motor(PORT9, ratio18_1, false);
 motor MotorGroup9MotorB = motor(PORT19, ratio18_1, true);
 motor_group MotorGroup9 = motor_group(MotorGroup9MotorA, MotorGroup9MotorB);
 controller Controller1 = controller(primary);
+motor Motor18 = motor(PORT18, ratio18_1, false);
 
 // VEXcode generated functions
 // define variable for remote controller enable/disable
@@ -172,6 +213,12 @@ int rc_auto_loop_function_Controller1() {
       if (Controller1.ButtonR2.pressing()) {
         speed = 0.5;
       }
+      if (Controller1.ButtonUp.pressing()) {
+        Motor18.spin(forward);
+      }
+      if (Controller1.ButtonDown.pressing()) {
+        Motor18.spin(reverse);
+      }
     }
     // wait before repeating the process
     wait(20, msec);
@@ -217,31 +264,50 @@ void pre_auton(void) {
 /*---------------------------------------------------------------------------*/
 
 void auto_yellow_goal(void) {
-  Drivetrain.setDriveVelocity(50, percent);
-  MotorGroup9.spinFor(reverse, 100 * 1.75, degrees);
+  Drivetrain.setDriveVelocity(500, percent);
+  MotorGroup9.setVelocity(100, percent);
+  MotorGroup9.spinFor(reverse, 160 * -3.0 * 1.75, degrees);
   Drivetrain.driveFor(forward, 54, inches);
-  MotorGroup9.spinFor(forward, 45 * 1.75, degrees);
-  Drivetrain.driveFor(reverse, 54, inches);
-  MotorGroup9.spinFor(reverse, 45 * 1.75, degrees);
+  MotorGroup9.spinFor(reverse, 100 * -3.0 * 1.75, degrees);
+  Drivetrain.driveFor(forward, 54, inches);
+  //MotorGroup9.spinFor(reverse, 175 * 1.75, degrees);
 }
 
 void left_auto_alliance_goal(void) {
+  Drivetrain.setDriveVelocity(500, percent);
+  MotorGroup9.spinFor(reverse, 160 * -3.0 * 1.75, degrees);
   Drivetrain.turnFor(left, 10, degrees);
   Drivetrain.driveFor(forward, 15, inches);
-  MotorGroup9.spinFor(forward, 90 * 1.75, degrees);
+  MotorGroup9.spinFor(forward,  100 * -3.0 * 1.75, degrees);
   Drivetrain.driveFor(reverse, 15, inches);
 }
 
 void right_auto_alliance_goal(void) {
   Drivetrain.driveFor(forward, 9, inches);
-  MotorGroup9.spinFor(forward, 100*1.75, degrees);
+  MotorGroup9.spinFor(reverse, 160 * -3.0 * 1.75, degrees);
   Drivetrain.driveFor(forward, 7, inches);
-  MotorGroup9.spinFor(reverse, 100*1.75, degrees);
+  MotorGroup9.spinFor(reverse, 160 * -3.0 * 1.75, degrees);
   Drivetrain.driveFor(forward, 40, inches);
-  MotorGroup9.spinFor(forward, 100*1.75, degrees);
+  MotorGroup9.spinFor(forward, 160 * -3.0 * 1.75, degrees);
 
 }
 
+void skills(void) {
+Drivetrain.setDriveVelocity(100, percent);  
+// MotorGroup9.spinFor(-120 * -3.0 * 1.75, degrees);
+Drivetrain.driveFor(forward, 15, inches);
+// MotorGroup9.spinFor(200, degrees);
+Drivetrain.driveFor(50, inches);
+MotorGroup9.spinFor(-100 * -3.0 * 1.75, degrees);
+Drivetrain.driveFor(reverse, 1, inches);
+}
+
+void skills2(void) {
+  Drivetrain.turnFor(right, 10, degrees);
+  Drivetrain.driveFor(forward, 12.5, inches);
+  MotorGroup9.spinFor(forward, 160 * -3.0 * 1.75, degrees);
+  Drivetrain.driveFor(reverse, 12.5, inches);
+}
 
 
 
@@ -251,9 +317,10 @@ void autonomous(void) {
   // Insert autonomous user code here.
   // ..........................................................................
   //auto_yellow_goal();
-  //left_auto_alliance_goal();
+  left_auto_alliance_goal();
   //right_auto_alliance_goal();
-
+  //skills();
+  //skills2();
 }
 
 /*---------------------------------------------------------------------------*/
@@ -270,6 +337,7 @@ void usercontrol(void) {
   // User control code here, inside the loop
   Drivetrain.setDriveVelocity(70, percent);
   MotorGroup9.setStopping(hold);
+  MotorGroup9.setVelocity(100, percent);
   Drivetrain.setTurnVelocity(70, percent);
   
   while (1) {
