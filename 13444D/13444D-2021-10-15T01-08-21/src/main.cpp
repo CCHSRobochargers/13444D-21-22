@@ -136,17 +136,17 @@ motor MotorGroup9MotorA = motor(PORT9, ratio18_1, false);
 motor MotorGroup9MotorB = motor(PORT19, ratio18_1, true);
 motor_group MotorGroup9 = motor_group(MotorGroup9MotorA, MotorGroup9MotorB);
 controller Controller1 = controller(primary);
-controller Controller2 = controller(partner);
+//controller Controller2 = controller(partner);
 motor Motor18 = motor(PORT18, ratio18_1, false);
-motor Motor17 = motor(PORT17, ratio36_1, true);
+//motor Motor17 = motor(PORT17, ratio36_1, true);
 motor Motor15 = motor(PORT15, ratio18_1, false);
 motor Motor16 = motor(PORT16, ratio18_1, true);
-motor_group MotorGroup15 = motor_group(Motor15, Motor16);
+//motor_group MotorGroup15 = motor_group(Motor15, Motor16);
 // VEXcode generated functions
 // define variable for remote controller enable/disable
 bool RemoteControlCodeEnabled = true;
 // define variables used for controlling motors based on controller inputs
-bool Controller2LeftShoulderControlMotorsStopped = true;
+bool Controller1LeftShoulderControlMotorsStopped = true;
 bool DrivetrainLNeedsToBeStopped_Controller1 = true;
 bool DrivetrainRNeedsToBeStopped_Controller1 = true;
 
@@ -200,46 +200,48 @@ int rc_auto_loop_function_Controller1() {
         RightDriveSmart.spin(forward);
       }
       // check the ButtonL1/ButtonL2 status to control MotorGroup9
-      if (Controller2.ButtonL1.pressing()) {
+      if (Controller1.ButtonL1.pressing()) {
         MotorGroup9.spin(forward);
-        Controller2LeftShoulderControlMotorsStopped = false;
-      } else if (Controller2.ButtonL2.pressing()) {
+        Controller1LeftShoulderControlMotorsStopped = false;
+      } else if (Controller1.ButtonL2.pressing()) {
         MotorGroup9.spin(reverse);
-        Controller2LeftShoulderControlMotorsStopped = false;
-      } else if (!Controller2LeftShoulderControlMotorsStopped) {
+        Controller1LeftShoulderControlMotorsStopped = false;
+      } else {
         MotorGroup9.stop();
         // set the toggle so that we don't constantly tell the motor to stop when the buttons are released
-        Controller2LeftShoulderControlMotorsStopped = true;
+        Controller1LeftShoulderControlMotorsStopped = true;
       }
-      if (Controller1.ButtonR1.pressing()) {
+      if (Controller1.ButtonUp.pressing()) {
         speed = 1.0;
       }
-      if (Controller1.ButtonR2.pressing()) {
+      if (Controller1.ButtonDown.pressing()) {
         speed = 0.5;
       }
-      if (Controller2.ButtonUp.pressing()) {
+      if (Controller1.ButtonR1.pressing()) {
         Motor18.spin(forward);
-      }
-      if (Controller2.ButtonDown.pressing()) {
+      } else 
+      if (Controller1.ButtonR2.pressing()) {
         Motor18.spin(reverse);
-      }
-      if (Controller2.ButtonR1.pressing()) {
-        Motor17.spin(forward);
-      } else if (Controller2.ButtonR2.pressing()) {
-        Motor17.spin(reverse);
       } else {
-        Motor17.stop();
+        Motor18.stop();
       }
-      if (Controller2.ButtonUp.pressing()) {
-        MotorGroup15.spin(forward);
-      }
-      else if (Controller2.ButtonDown.pressing()) {
-        MotorGroup15.spin(reverse);
-      } else {
-        MotorGroup15.stop();
-      }
+      //if //(Controller2.ButtonUp.pressing()) {
+        //Motor17.spin(forward);
+      //} //else if (Controller2.ButtonDown.pressing()) {
+        //Motor17.spin(reverse);
+      //} else {
+        //Motor17.stop();
+      //}
+      //if (Controller1.ButtonUp.pressing()) {
+        //MotorGroup15.spin(forward);
+      //}
+      //else if (Controller1.ButtonDown.pressing()) {
+        //MotorGroup15.spin(reverse);
+      //} else {
+        //MotorGroup15.stop();
+      //}
     }
-    // wait before repeating the process
+     //wait before repeating the process
     wait(20, msec);
   }
   return 0;
@@ -284,10 +286,10 @@ void pre_auton(void) {
 
 void auto_yellow_goal(void) {
   Drivetrain.setDriveVelocity(500, percent);
-  MotorGroup9.setVelocity(100, percent);
-  MotorGroup9.spinFor(reverse, 160 * -3.0 * 1.75, degrees);
+  MotorGroup9.setVelocity(65, percent);
+  MotorGroup9.spinFor(forward, 65 * -3.0 * 1.75, degrees);
   Drivetrain.driveFor(forward, 54, inches);
-  MotorGroup9.spinFor(forward, 100 * -3.0 * 1.75, degrees);
+  MotorGroup9.spinFor(reverse, 65 * -3.0 * 1.75, degrees);
   Drivetrain.driveFor(reverse, 54, inches);
   //MotorGroup9.spinFor(reverse, 175 * 1.75, degrees);
 }
@@ -356,13 +358,13 @@ void usercontrol(void) {
   // User control code here, inside the loop
   Drivetrain.setDriveVelocity(70, percent);
   MotorGroup9.setStopping(hold);
-  Motor17.setStopping(hold);
-  MotorGroup15.setStopping(hold);
+  //Motor17.setStopping(hold);
+  //MotorGroup15.setStopping(hold);
   MotorGroup9.setVelocity(100, percent);
   Drivetrain.setTurnVelocity(70, percent);
   MotorGroup9.setMaxTorque(100, percent);
-  MotorGroup15.setMaxTorque(100, percent);
-  Motor17.setMaxTorque(100, percent);
+  //MotorGroup15.setMaxTorque(100, percent);
+  //Motor17.setMaxTorque(100, percent);
   
   while (1) {
     // This is the main execution loop for the user control program.
